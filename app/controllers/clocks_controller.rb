@@ -1,5 +1,6 @@
 class ClocksController < ApplicationController
   before_action :set_clock, only: [:show, :edit, :update, :destroy]
+  around_action :set_time_zone, only: [:show]
 
   # GET /clocks
   def index
@@ -67,5 +68,9 @@ class ClocksController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def clock_params
       params.require(:clock).permit(:title, :description, :public, :human_time, :time_zone)
+    end
+
+    def set_time_zone(&block)
+      Time.use_zone(@clock.time_zone, &block)
     end
 end
