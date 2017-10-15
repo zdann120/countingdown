@@ -1,6 +1,6 @@
 class ClocksController < ApplicationController
   before_action :set_clock, only: [:show, :edit, :update, :destroy]
-  around_action :set_time_zone, only: [:show]
+  before_action :set_time_zone, only: [:show]
 
   # GET /clocks
   def index
