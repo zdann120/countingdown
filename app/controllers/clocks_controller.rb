@@ -10,7 +10,7 @@ class ClocksController < ApplicationController
   def show
     respond_to do |format|
       format.html { render :show }
-      format.json { 
+      format.json {
         render json: @clock.
           duration.
           to_h.merge(
@@ -66,6 +66,6 @@ class ClocksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def clock_params
-      params.require(:clock).permit(:title, :description, :public, :human_time)
+      params.require(:clock).permit(:title, :description, :public, :human_time, :time_zone)
     end
 end
