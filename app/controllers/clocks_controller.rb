@@ -1,14 +1,15 @@
 class ClocksController < ApplicationController
   before_action :set_clock, only: [:show, :edit, :update, :destroy]
-  before_action :set_time_zone, only: [:show, :create]
+  before_action :set_time_zone, only: [:show]
 
   # GET /clocks
   def index
-    @clocks = Clock.all
+    @clocks = Clock.all.where(public: true)
   end
 
   # GET /clocks/1
   def show
+    authorize @clock
     respond_to do |format|
       format.html { render :show }
       format.json {
@@ -27,15 +28,20 @@ class ClocksController < ApplicationController
   # GET /clocks/new
   def new
     @clock = Clock.new
+    authorize @clock
   end
 
   # GET /clocks/1/edit
   def edit
+    authorize @clock
   end
 
   # POST /clocks
   def create
     @clock = Clock.new(clock_params)
+    authorize @clock
+    set_time_zone
+    @clock.user_id = current_user.id if current_user
 
     if @clock.save
       redirect_to @clock, notice: 'Clock was successfully created.'
@@ -46,6 +52,7 @@ class ClocksController < ApplicationController
 
   # PATCH/PUT /clocks/1
   def update
+    authorize @clock
     if @clock.update(clock_params)
       redirect_to @clock, notice: 'Clock was successfully updated.'
     else
@@ -55,6 +62,7 @@ class ClocksController < ApplicationController
 
   # DELETE /clocks/1
   def destroy
+    authorize @clock
     @clock.destroy
     redirect_to clocks_url, notice: 'Clock was successfully destroyed.'
   end

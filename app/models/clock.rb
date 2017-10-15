@@ -25,6 +25,14 @@ class Clock < ApplicationRecord
     slug
   end
 
+  def user
+    if user_id
+      User.find(user_id)
+    else
+      nil
+    end
+  end
+
   private
 
   def parse_human_time
