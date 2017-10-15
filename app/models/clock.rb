@@ -28,8 +28,11 @@ class Clock < ApplicationRecord
   private
 
   def parse_human_time
-    Chronic.time_class = DateTime.in_time_zone(time_zone)
-    self.countdown_to = Chronic.parse(human_time)
+    #Chronic.time_class = DateTime.in_time_zone(time_zone)
+    self.countdown_to = Chronic.
+                          parse(human_time).
+                          to_datetime.
+                          in_time_zone(time_zone)
   end
 
   def set_human_time
