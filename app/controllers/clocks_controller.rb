@@ -70,7 +70,7 @@ class ClocksController < ApplicationController
       params.require(:clock).permit(:title, :description, :public, :human_time, :time_zone)
     end
 
-    def set_time_zone(&block)
-      Time.use_zone(@clock.time_zone, &block)
+    def set_time_zone
+      Time.zone = @clock.time_zone
     end
 end
