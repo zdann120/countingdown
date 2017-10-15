@@ -1,0 +1,22 @@
+.text-center
+  h1
+    | CountingDown to
+    br
+    span.text-muted = @clock.title
+  h2 = @clock.countdown_to.strftime('%e %b %Y at %I:%M %p')
+  p.lead
+    = @clock.description
+  table.table.table-sm
+    thead.table-inverse
+      tr
+        th Days
+        th Hours
+        th Minutes
+        th Seconds
+    tbody.table-bordered
+      tr
+        td = @clock.duration.days
+        td = @clock.duration.hours
+        td = @clock.duration.minutes
+        td = @clock.duration.seconds
+  = link_to 'Edit', edit_clock_path(@clock)

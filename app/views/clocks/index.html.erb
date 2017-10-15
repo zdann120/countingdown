@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Clocks</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Countdown to</th>
+      <th>Title</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @clocks.each do |clock| %>
+      <tr>
+        <td><%= clock.countdown_to %></td>
+        <td><%= clock.title %></td>
+        <td><%= clock.description %></td>
+        <td><%= link_to 'Show', clock %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Clock', new_clock_path %>
